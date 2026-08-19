@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crypt Lavender - Ethereal Crypto Intelligence & Decentralized Yield Platform. Real-time market analytics, token swap, and staking rewards.">
+  <title>Crypt Lavender | Ethereal Crypto Terminal & Yield Analytics</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js, TradingView Lightweight Charts & Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+  <canvas id="visualizer-canvas"></canvas>
+
+  <!-- Application Header -->
+  <header class="app-header">
+    <!-- Live Global Ticker Bar -->
+    <div class="ticker-bar">
+      <div class="container">
+        <div class="ticker-content">
+          <div class="ticker-item">
+            <span>Global Market Cap:</span>
+            <span class="ticker-val font-mono">$3.42T</span>
+            <span class="badge badge-mint" style="padding: 2px 6px; font-size: 0.7rem;">+2.4%</span>
+          </div>
+          <div class="ticker-item">
+            <span>24h Volume:</span>
+            <span class="ticker-val font-mono">$128.4B</span>
+          </div>
+          <div class="ticker-item">
+            <span>🪻 LAV Staking APY:</span>
+            <span class="ticker-val font-mono" style="color: var(--lavender-light);">24.80%</span>
+          </div>
+          <div class="ticker-item">
+            <span>ETH Gas:</span>
+            <span class="ticker-val font-mono">12 Gwei</span>
+          </div>
+          <div class="ticker-item">
+            <span>Network Health:</span>
+            <span class="pulse-dot"></span>
+            <span class="ticker-val" style="color: var(--accent-mint);">Optimal (99.9%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar">
+      <div class="container nav-container">
+        <a href="#" class="brand-logo">
+          <div class="logo-orb">🪻</div>
+          <div class="logo-text gradient-text">Crypt Lavender</div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#market" class="nav-link active">Terminal</a></li>
+          <li><a href="#swap" class="nav-link">Instant Swap</a></li>
+          <li><a href="#staking" class="nav-link">Yield Vaults</a></li>
+          <li><a href="#activity" class="nav-link">Activity</a></li>
+        </ul>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button id="header-connect-wallet" class="btn btn-primary btn-sm btn-connect-wallet">
+            <i data-lucide="wallet"></i> Connect Wallet
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-pill">
+          <span class="pulse-dot"></span>
+          <span style="color: var(--lavender-light); font-weight: 600;">Crypt Lavender V2.4 Engine Live</span>
+          <span style="color: var(--text-dim);">|</span>
+          <span style="color: var(--text-muted);">Zero Slippage Liquidity Pools</span>
+        </div>
+
+        <h1 class="hero-title">
+          Ethereal Intelligence & <br>
+          <span class="gradient-text-glow">Decentralized Yield Terminal</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Real-time market velocity tracking, automated liquid staking, and instant zero-impact token swaps tuned for high-yield decentralized finance.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#swap" class="btn btn-primary btn-lg">
+            <i data-lucide="repeat"></i> Launch Lavender Swap
+          </a>
+          <a href="#staking" class="btn btn-glass btn-lg">
+            <i data-lucide="sparkles"></i> Calculate Staking Yield
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dashboard Section -->
+    <section id="market" class="dashboard-grid">
+      <div class="container">
+        <div class="grid-12">
+          
+          <!-- Price Chart Component (8 Cols) -->
+          <div style="grid-column: span 8;">
+            <div class="glass-panel chart-card">
+              <div class="chart-header">
+                <div class="token-info-group">
+                  <div id="active-token-icon" class="token-icon-lg">🪻</div>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <h3 id="active-token-name" style="font-size: 1.4rem;">Crypt Lavender</h3>
+                      <span id="active-token-symbol" class="badge badge-lavender">LAV</span>
+                    </div>
+                    <div class="price-display" style="margin-top: 4px;">
+                      <span id="active-current-price" class="current-price">$4.8500</span>
+                      <span id="active-change-badge" class="badge badge-mint">▲ +18.42%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                  <!-- View Mode Switcher: Candlestick vs Line -->
+                  <div class="chart-type-selector">
+                    <button id="view-candles-btn" class="chart-type-btn active" title="Candlestick View">
+                      <i data-lucide="candlestick-chart" style="width: 16px; height: 16px;"></i> Candles
+                    </button>
+                    <button id="view-line-btn" class="chart-type-btn" title="Line View">
+                      <i data-lucide="line-chart" style="width: 16px; height: 16px;"></i> Line
+                    </button>
+                  </div>
+
+                  <!-- Timeframe Selector -->
+                  <div class="timeframe-selector">
+                    <button class="tf-btn">15M</button>
+                    <button class="tf-btn active">1H</button>
+                    <button class="tf-btn">4H</button>
+                    <button class="tf-btn">1D</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OHLC Readout Bar -->
+              <div id="ohlc-readout" class="font-mono" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; display: flex; gap: 16px;">
+                <span>O: <strong id="ohlc-open" style="color: var(--text-main);">$0.00</strong></span>
+                <span>H: <strong id="ohlc-high" style="color: var(--accent-mint);">$0.00</strong></span>
+                <span>L: <strong id="ohlc-low" style="color: var(--accent-rose);">$0.00</strong></span>
+                <span>C: <strong id="ohlc-close" style="color: var(--lavender-light);">$0.00</strong></span>
+              </div>
+
+              <div class="chart-container">
+                <div id="candlestick-chart-container" style="width: 100%; height: 340px;"></div>
+                <canvas id="price-chart" style="display: none;"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Swap Terminal Widget (4 Cols) -->
+          <div style="grid-column: span 4;" id="swap">
+            <div class="glass-panel swap-card">
+              <div class="swap-card-header">
+                <h3>Lavender Swap</h3>
+                <button class="swap-settings-btn" title="Settings">
+                  <i data-lucide="sliders-horizontal" style="width: 18px; height: 18px;"></i>
+                </button>
+              </div>
+
+              <!-- From Input Box -->
+              <div class="swap-box">
+                <div class="swap-box-header">
+                  <span>Pay</span>
+                  <span>Balance: <strong class="font-mono" style="color: var(--text-main);">4.285 ETH</strong></span>
+                </div>
+                <div class="swap-input-row">
+                  <input type="number" id="swap-from-amount" class="swap-input" value="1" placeholder="0.0">
+                  <button id="swap-from-token-btn" class="token-select-btn">
+                    Ξ ETH
+                  </button>
+                </div>
+              </div>
+
+              <!-- Switch Tokens Button -->
+              <button id="swap-switch-btn" class="swap-switch-btn" title="Switch Tokens">
+                <i data-lucide="arrow-down-up" style="width: 18px; height: 18px;"></i>
+              </button>
+
+              <!-- To Input Box -->
+              <div class="swap-box">
+                <div class="swap-box-header">
+                  <span>Receive (Estimated)</span>
+                  <span>Balance: <strong class="font-mono" style="color: var(--text-main);">1,250 LAV</strong></span>
+                </div>
+                <div class="swap-input-row">
+                  <input type="number" id="swap-to-amount" class="swap-input" value="705.25" placeholder="0.0" readonly>
+                  <button id="swap-to-token-btn" class="token-select-btn">
+                    🪻 LAV
+                  </button>
+                </div>
+              </div>
+
+              <!-- Swap Quotation Details -->
+              <div class="swap-details">
+                <div class="swap-detail-row">
+                  <span class="swap-detail-label">Rate</span>
+                  <span id="swap-rate" class="swap-detail-val">1 ETH = 705.25 LAV</span>
+                </div>
+                <div class="swap-detail-row">
+                  <span class="swap-detail-label">Price Impact</span>
+                  <span id="swap-price-impact" class="swap-detail-val" style="color: var(--accent-mint);">&lt; 0.05%</span>
+                </div>
+                <div class="swap-detail-row">
+                  <span class="swap-detail-label">Est. Network Fee</span>
+                  <span class="swap-detail-val">$2.45 (12 Gwei)</span>
+                </div>
+                <div class="swap-detail-row">
+                  <span class="swap-detail-label">Min. Received</span>
+                  <span id="swap-min-received" class="swap-detail-val">701.72 LAV</span>
+                </div>
+              </div>
+
+              <button id="swap-action-btn" class="btn btn-primary btn-lg" style="width: 100%;">
+                Swap Tokens
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Watchlist Table & Staking Grid Row -->
+        <div class="grid-12" style="margin-top: 24px;">
+          
+          <!-- Live Watchlist Table (7 Cols) -->
+          <div style="grid-column: span 7;">
+            <div class="glass-panel watchlist-card">
+              <div class="flex-between" style="margin-bottom: 18px;">
+                <h3>Market Intelligence Watchlist</h3>
+                <span class="badge badge-lavender font-mono">5 Tokens Monitored</span>
+              </div>
+
+              <div style="overflow-x: auto;">
+                <table class="watchlist-table">
+                  <thead>
+                    <tr>
+                      <th>Asset</th>
+                      <th>Price</th>
+                      <th>24h Change</th>
+                      <th>24h Vol</th>
+                      <th>Market Cap</th>
+                    </tr>
+                  </thead>
+                  <tbody id="watchlist-tbody">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yield & Staking Vault Calculator (5 Cols) -->
+          <div style="grid-column: span 5;" id="staking">
+            <div class="glass-panel staking-card">
+              <div class="flex-between">
+                <h3>🪻 LAV Staking Vault</h3>
+                <span id="calc-apy-val" class="badge badge-mint font-mono" style="font-size: 0.9rem;">27.28% APY</span>
+              </div>
+
+              <div class="slider-container">
+                <div class="flex-between" style="margin-bottom: 8px; font-size: 0.85rem;">
+                  <span style="color: var(--text-muted);">Amount to Stake (LAV)</span>
+                  <input type="number" id="stake-amount-input" class="font-mono" value="1000" style="width: 90px; background: rgba(9,6,17,0.5); border: 1px solid var(--border-glass); color: #fff; border-radius: 8px; padding: 4px 8px; text-align: right; outline: none;">
+                </div>
+                <input type="range" id="stake-amount-slider" class="custom-slider" min="100" max="50000" step="100" value="1000">
+              </div>
+
+              <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted);">Lock Duration Period</label>
+                <div class="duration-pills">
+                  <div class="duration-pill" data-days="30">30 Days</div>
+                  <div class="duration-pill active" data-days="90">90 Days</div>
+                  <div class="duration-pill" data-days="180">180 Days</div>
+                  <div class="duration-pill" data-days="365">365 Days</div>
+                </div>
+              </div>
+
+              <div class="yield-result-box">
+                <div class="flex-between" style="margin-bottom: 10px;">
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Projected Yield Return</span>
+                  <span id="calc-profit-lav" class="font-mono" style="font-weight: 700; color: var(--lavender-light); font-size: 1.1rem;">+67.20 LAV</span>
+                </div>
+                <div class="flex-between" style="margin-bottom: 10px;">
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Estimated Value (USD)</span>
+                  <span id="calc-profit-usd" class="font-mono" style="font-weight: 700; color: var(--accent-mint); font-size: 1.1rem;">+$325.92</span>
+                </div>
+                <div class="flex-between" style="border-top: 1px dashed rgba(167,139,250,0.2); padding-top: 10px; margin-top: 6px;">
+                  <span style="color: var(--text-muted); font-size: 0.9rem;">Total Value at Unlock</span>
+                  <span id="calc-total-usd" class="font-mono" style="font-weight: 700; color: var(--text-main); font-size: 1.2rem;">$5,175.92</span>
+                </div>
+              </div>
+
+              <button id="stake-action-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 18px;">
+                Stake LAV Tokens
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Network Activity Feed Section -->
+        <div id="activity" style="margin-top: 24px;">
+          <div class="glass-panel" style="padding: 24px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
+              <h3>Live Network Transaction Stream</h3>
+              <span class="badge badge-mint"><span class="pulse-dot"></span> Streaming</span>
+            </div>
+
+            <div class="activity-list">
+              <div class="activity-item">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span class="token-symbol-badge" style="background: rgba(52, 211, 153, 0.15); color: var(--accent-mint);">🪻</span>
+                  <div>
+                    <div style="font-weight: 600;">Staked 4,500 LAV</div>
+                    <div class="font-mono" style="font-size: 0.75rem; color: var(--text-muted);">0x9e2b...f412 • 90 Days Vault</div>
+                  </div>
+                </div>
+                <div class="font-mono" style="font-size: 0.85rem; color: var(--accent-mint);">+$21,825.00</div>
+              </div>
+
+              <div class="activity-item">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span class="token-symbol-badge" style="background: rgba(167, 139, 250, 0.15); color: var(--lavender-light);">🔄</span>
+                  <div>
+                    <div style="font-weight: 600;">Swapped 2.5 ETH for 1,763.12 LAV</div>
+                    <div class="font-mono" style="font-size: 0.75rem; color: var(--text-muted);">0x3a89...c102 • Lavender Router</div>
+                  </div>
+                </div>
+                <div class="font-mono" style="font-size: 0.85rem; color: var(--lavender-light);">$8,551.25</div>
+              </div>
+
+              <div class="activity-item">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span class="token-symbol-badge" style="background: rgba(247, 147, 26, 0.15); color: #f7931a;">₿</span>
+                  <div>
+                    <div style="font-weight: 600;">Harvested Yield Rewards</div>
+                    <div class="font-mono" style="font-size: 0.75rem; color: var(--text-muted);">0x1d44...98a0 • Auto-compound</div>
+                  </div>
+                </div>
+                <div class="font-mono" style="font-size: 0.85rem; color: var(--accent-mint);">+$1,420.50</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border-glass); padding: 40px 0; background: rgba(9,6,17,0.8);">
+    <div class="container flex-between" style="flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="logo-orb" style="width: 32px; height: 32px; font-size: 0.9rem;">🪻</div>
+        <span class="gradient-text" style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;">Crypt Lavender</span>
+        <span style="font-size: 0.8rem; color: var(--text-dim);">© 2026. All rights reserved.</span>
+      </div>
+
+      <div style="display: flex; gap: 20px; font-size: 0.85rem; color: var(--text-muted);">
+        <a href="#" style="color: inherit; text-decoration: none;">Security Audits</a>
+        <a href="#" style="color: inherit; text-decoration: none;">Documentation</a>
+        <a href="#" style="color: inherit; text-decoration: none;">GitHub</a>
+        <a href="#" style="color: inherit; text-decoration: none;">Discord Community</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Web3 Wallet Connection Modal -->
+  <div id="wallet-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="flex-between">
+        <h3 style="font-size: 1.3rem;">Connect Web3 Wallet</h3>
+        <button id="close-wallet-modal" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer;">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+        Select your wallet provider to connect to Crypt Lavender Terminal.
+      </p>
+
+      <div class="wallet-options">
+        <button class="wallet-option-btn" data-wallet="MetaMask">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.4rem;">🦊</span>
+            <span>MetaMask</span>
+          </div>
+          <i data-lucide="chevron-right"></i>
+        </button>
+
+        <button class="wallet-option-btn" data-wallet="Phantom">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.4rem;">👻</span>
+            <span>Phantom</span>
+          </div>
+          <i data-lucide="chevron-right"></i>
+        </button>
+
+        <button class="wallet-option-btn" data-wallet="WalletConnect">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.4rem;">🌐</span>
+            <span>WalletConnect</span>
+          </div>
+          <i data-lucide="chevron-right"></i>
+        </button>
+
+        <button class="wallet-option-btn" data-wallet="Coinbase Wallet">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.4rem;">🔵</span>
+            <span>Coinbase Wallet</span>
+          </div>
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/crypto-data.js"></script>
+  <script src="js/visualizer.js"></script>
+  <script src="js/swap-engine.js"></script>
+  <script src="js/yield-calculator.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/candlestick-chart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

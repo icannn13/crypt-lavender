@@ -1,0 +1,620 @@
+/* ==========================================================================
+   CRYPT LAVENDER - COMPONENTS STYLESHEET
+   ========================================================================== */
+
+/* 1. Header & Navigation Ticker */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(9, 6, 17, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.ticker-bar {
+  background: rgba(18, 13, 36, 0.6);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.08);
+  padding: 6px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ticker-content::-webkit-scrollbar { display: none; }
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ticker-val {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.navbar {
+  padding: 16px 0;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-orb {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--violet-mid) 0%, var(--lavender-primary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--lavender-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-orb::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+  animation: shineOrb 4s infinite;
+}
+
+@keyframes shineOrb {
+  0% { transform: translateY(-100%) rotate(45deg); }
+  20%, 100% { transform: translateY(100%) rotate(45deg); }
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--text-main);
+  background: rgba(167, 139, 250, 0.12);
+}
+
+/* 2. Hero Section */
+.hero-section {
+  padding: 60px 0 40px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid var(--border-glass-bright);
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  line-height: 1.1;
+  max-width: 900px;
+  margin: 0 auto 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto 36px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* 3. Main Dashboard Layout */
+.dashboard-grid {
+  padding: 40px 0 80px;
+}
+
+/* Chart & Watchlist Section */
+.chart-card {
+  padding: 28px;
+  height: 100%;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.token-info-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.token-icon-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid var(--border-glass-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--lavender-light);
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.timeframe-selector, .chart-type-selector {
+  display: flex;
+  background: rgba(9, 6, 17, 0.6);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-glass);
+}
+
+.tf-btn, .chart-type-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tf-btn.active, .tf-btn:hover,
+.chart-type-btn.active, .chart-type-btn:hover {
+  background: rgba(167, 139, 250, 0.2);
+  color: var(--text-main);
+}
+
+.chart-container {
+  position: relative;
+  height: 340px;
+  width: 100%;
+}
+
+/* Watchlist Table */
+.watchlist-card {
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.watchlist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.watchlist-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+}
+
+.watchlist-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.05);
+  font-size: 0.95rem;
+}
+
+.watchlist-row {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.watchlist-row:hover {
+  background: rgba(167, 139, 250, 0.06);
+}
+
+.watchlist-row.selected {
+  background: rgba(167, 139, 250, 0.12);
+}
+
+.token-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.token-symbol-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(167, 139, 250, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--lavender-light);
+}
+
+/* 4. Swap Card Widget */
+.swap-card {
+  padding: 28px;
+}
+
+.swap-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.swap-settings-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+}
+
+.swap-settings-btn:hover {
+  color: var(--text-main);
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.swap-box {
+  background: rgba(9, 6, 17, 0.5);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 18px;
+  transition: border-color var(--transition-fast);
+}
+
+.swap-box:focus-within {
+  border-color: var(--border-glass-bright);
+}
+
+.swap-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.swap-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.swap-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  width: 100%;
+}
+
+.swap-input::placeholder {
+  color: var(--text-dim);
+}
+
+.token-select-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.token-select-btn:hover {
+  background: rgba(167, 139, 250, 0.25);
+}
+
+.swap-switch-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-glass-bright);
+  color: var(--lavender-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -12px auto;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transition: all var(--transition-fast);
+}
+
+.swap-switch-btn:hover {
+  transform: rotate(180deg) scale(1.1);
+  background: var(--violet-mid);
+  color: #fff;
+}
+
+.swap-details {
+  margin: 18px 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(9, 6, 17, 0.3);
+  border: 1px dashed rgba(167, 139, 250, 0.15);
+  font-size: 0.85rem;
+}
+
+.swap-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.swap-detail-row:last-child { margin-bottom: 0; }
+
+.swap-detail-label { color: var(--text-muted); }
+.swap-detail-val { color: var(--text-main); font-weight: 600; font-family: var(--font-mono); }
+
+/* 5. Staking & Yield Calculator */
+.staking-card {
+  padding: 28px;
+}
+
+.slider-container {
+  margin: 20px 0;
+}
+
+.custom-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(167, 139, 250, 0.15);
+  outline: none;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lavender-primary), var(--amethyst-neon));
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--lavender-glow);
+  transition: transform var(--transition-fast);
+}
+
+.custom-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.duration-pills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.duration-pill {
+  padding: 10px;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(9, 6, 17, 0.5);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.duration-pill.active, .duration-pill:hover {
+  border-color: var(--lavender-primary);
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--text-main);
+}
+
+.yield-result-box {
+  background: linear-gradient(135deg, rgba(91, 33, 182, 0.25) 0%, rgba(124, 58, 237, 0.15) 100%);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 24px;
+}
+
+/* 6. Activity & Portfolio Drawer */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(9, 6, 17, 0.4);
+  border: 1px solid rgba(167, 139, 250, 0.08);
+}
+
+/* 7. Modal System */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 3, 10, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-glass-solid);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--glass-shadow);
+  transform: translateY(20px) scale(0.95);
+  transition: transform var(--transition-normal);
+}
+
+.modal-overlay.active .modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.wallet-option-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(167, 139, 250, 0.06);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.wallet-option-btn:hover {
+  background: rgba(167, 139, 250, 0.16);
+  border-color: var(--border-glass-bright);
+  transform: translateX(4px);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(22, 16, 42, 0.95);
+  border: 1px solid var(--border-glass-bright);
+  backdrop-filter: blur(16px);
+  color: var(--text-main);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: slideInToast 0.4s var(--ease-out-expo);
+}
+
+@keyframes slideInToast {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

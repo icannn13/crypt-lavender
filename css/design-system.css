@@ -1,0 +1,289 @@
+/* ==========================================================================
+   CRYPT LAVENDER - DESIGN SYSTEM & CORE UTILITIES
+   Theme: Ethereal Midnight Lavender & Amethyst Glassmorphism
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+
+:root {
+  /* Color Palette */
+  --bg-deep: #090611;
+  --bg-surface: #120d24;
+  --bg-card: rgba(22, 16, 42, 0.65);
+  --bg-card-hover: rgba(33, 24, 61, 0.75);
+  --bg-glass-solid: #171030;
+  
+  /* Primary Lavender & Amethyst Accents */
+  --lavender-primary: #a78bfa;
+  --lavender-light: #c4b5fd;
+  --lavender-glow: rgba(167, 139, 250, 0.35);
+  --amethyst-neon: #d8b4fe;
+  --violet-deep: #5b21b6;
+  --violet-mid: #7c3aed;
+  
+  /* Semantic Colors */
+  --accent-mint: #34d399;
+  --accent-mint-glow: rgba(52, 211, 153, 0.25);
+  --accent-rose: #f87171;
+  --accent-rose-glow: rgba(248, 113, 113, 0.25);
+  --accent-amber: #fbbf24;
+  
+  /* Text Colors */
+  --text-main: #f3f0ff;
+  --text-muted: #948bb5;
+  --text-dim: #645a85;
+  
+  /* Glass & Borders */
+  --border-glass: rgba(167, 139, 250, 0.16);
+  --border-glass-bright: rgba(216, 180, 254, 0.35);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 16px 40px -10px rgba(9, 5, 20, 0.8), 0 0 20px rgba(124, 58, 237, 0.1);
+
+  /* Fonts */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease-out-expo);
+  --transition-normal: 0.35s var(--ease-out-expo);
+  --transition-slow: 0.6s var(--ease-out-expo);
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Canvas & Ambient Lighting */
+#visualizer-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.ambient-glow {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, rgba(167, 139, 250, 0.05) 45%, transparent 70%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+  animation: floatAmbient 18s ease-in-out infinite alternate;
+}
+
+.ambient-glow-1 { top: -200px; left: -100px; }
+.ambient-glow-2 { bottom: -200px; right: -100px; animation-delay: -9s; }
+
+@keyframes floatAmbient {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 80px) scale(1.15); }
+  100% { transform: translate(-40px, -60px) scale(0.95); }
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.font-mono { font-family: var(--font-mono); }
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, var(--lavender-light) 50%, var(--amethyst-neon) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-glow {
+  background: linear-gradient(135deg, var(--lavender-light) 0%, var(--amethyst-neon) 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px var(--lavender-glow));
+}
+
+/* Glassmorphism Containers */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-glass-bright);
+}
+
+.glass-panel-interactive {
+  cursor: pointer;
+}
+
+.glass-panel-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--glass-shadow), 0 0 25px rgba(167, 139, 250, 0.2);
+}
+
+/* Button UI Components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--violet-mid) 0%, var(--lavender-primary) 100%);
+  color: #0b0718;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.6);
+  background: linear-gradient(135deg, #8b5cf6 0%, var(--amethyst-neon) 100%);
+}
+
+.btn-glass {
+  background: rgba(167, 139, 250, 0.08);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(10px);
+}
+
+.btn-glass:hover {
+  background: rgba(167, 139, 250, 0.18);
+  border-color: var(--border-glass-bright);
+  color: #ffffff;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 10px;
+}
+
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 1.05rem;
+  border-radius: 16px;
+}
+
+/* Badges & Indicators */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.badge-mint {
+  background: var(--accent-mint-glow);
+  color: var(--accent-mint);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge-rose {
+  background: var(--accent-rose-glow);
+  color: var(--accent-rose);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.badge-lavender {
+  background: rgba(167, 139, 250, 0.12);
+  color: var(--lavender-light);
+  border: 1px solid var(--border-glass);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-mint);
+  box-shadow: 0 0 10px var(--accent-mint);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px var(--accent-mint); }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-24 { gap: 24px; }
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.4);
+}

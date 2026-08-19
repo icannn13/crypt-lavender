@@ -1,0 +1,81 @@
+/* ==========================================================================
+   CRYPT LAVENDER - RESPONSIVE STYLESHEET
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .grid-12 {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .chart-container {
+    height: 280px;
+  }
+
+  .nav-links {
+    display: none; /* Mobile menu can toggle or simplify */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 0 20px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .current-price {
+    font-size: 1.6rem;
+  }
+
+  .duration-pills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+  
+  .toast {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+
+  .swap-card, .staking-card, .chart-card {
+    padding: 18px;
+  }
+}
